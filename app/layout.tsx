@@ -21,10 +21,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>
+      <body className={`${inter.className} min-h-screen flex flex-col relative pb-20`}> 
         <Navbar />
-        <main style={{ minHeight: `calc(100vh - 12rem)` }}>{children}</main>
-        <Footer className="fixed bottom-0 left-0 right-0" />
+        <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

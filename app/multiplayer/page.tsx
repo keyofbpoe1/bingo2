@@ -24,8 +24,8 @@ export default function MultiplayerPage() {
   };
 
   return (
-     <div className="container mx-auto flex h-screen">
-      <aside className="w-64 bg-gray-100 p-4 border-r border-gray-300" style={{position: 'relative', left: -150, height: 'fit-content'}}>
+     <div className="container mx-4 flex">
+      <aside className="w-64 p-4" >
         <GameRoomList />
         <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={callDeleteAllRoute}>
           Delete all game rooms

@@ -98,7 +98,7 @@ const BingoCard: React.FC<BingoCardProps> = ({ onWin, disabled, winningValues })
         </div>
       )}
       <button
-        className="bg-green-500 text-white px-4 py-2 rounded"
+        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none"
         onClick={resetGame}
         disabled={disabled}
       >

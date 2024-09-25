@@ -72,11 +72,14 @@
 
 'use client';
 
+//import React from 'react';
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import BingoCard from '@/app/components/bingocard';
+import Share from '@/app/components/share';
 
 export default function BingoGame() {
+  const [showShareModal, setShowShareModal] = useState(false);
   const [socket, setSocket] = useState<ReturnType<typeof io> | null>(null);
   const [username, setUsername] = useState('');
   const [isUsernameSet, setIsUsernameSet] = useState(false);
@@ -156,22 +159,34 @@ export default function BingoGame() {
 
   if (!isUsernameSet) {
     return (
-      <form onSubmit={handleUsernameSubmit} className="flex flex-col items-center">
+      <form onSubmit={handleUsernameSubmit} className="flex flex-col items-center p-24">
         <input
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
-          className="border p-2 mb-2 text-gray-800"
+          className="border p-2 mb-2 text-gray-800 rounded-md"
           placeholder="Enter your username"
         />
-        <button type="submit" className="bg-green-500 text-white px-4 py-2">Join Bingo Game</button>
-      </form>
-    );
+        <button type="submit" className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none">Join Bingo Game</button>
+      </form>    );
   }
 
+  const handleShareClick = () => {
+    setShowShareModal(true);
+  };
+
   return (
-    <div className="container mx-auto p-4">
+    <div className="container mx-auto p-10">
       <h1 className="text-2xl font-bold mb-4">Bingo Game</h1>
+      <div className="flex justify-left p-4">
+        <button
+          onClick={handleShareClick}
+          className="bg-blue-500 text-white px-4 py-2 rounded"
+        >
+          Share Game
+        </button>
+      </div>
+      {showShareModal && <Share onClose={() => setShowShareModal(false)} />}
       {winnerMessage && (
         <div className="mt-4 text-center text-xl font-bold text-green-600">
           {winnerMessage}

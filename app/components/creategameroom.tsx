@@ -53,7 +53,7 @@ const [name, setName] = useState("");
         </label>
         <button
           type="submit"
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
+          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700 focus:outline-none"
         >
           Create Game Room
         </button>
