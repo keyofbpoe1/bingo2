@@ -55,14 +55,21 @@ export async function GET(req: NextRequest, res: NextResponse) {
 
 export async function DELETE(req: NextRequest, res: NextResponse) {
     try {
-        const id = req.nextUrl.searchParams.get('id');
-        if (id) {
-            const gameroom = await prisma.gameroom.delete({
-                where: {
-                    id: parseInt(id, 10),
-                },
-            });
-            return NextResponse.json({ message: 'Data deleted', gameroom }, { status: 200 });
+        if (req.nextUrl.searchParams.get('id')) {
+            const id = req.nextUrl.searchParams.get('id');
+            if (id !== null) {
+                const gameroom = await prisma.gameroom.delete({
+                    where: {
+                        id: parseInt(id, 10),
+                    },
+                });
+                return NextResponse.json({ message: 'Data deleted', gameroom }, { status: 200 });
+            } else {
+                return NextResponse.json({ error: 'No id provided' }, { status: 400 });
+            }
+        } else if (req.nextUrl.searchParams.get('all') === 'true') {
+            const gamerooms = await prisma.gameroom.deleteMany();
+            return NextResponse.json({ message: 'All data deleted', gamerooms }, { status: 200 });
         }
         return NextResponse.json({ error: 'No id provided' }, { status: 400 });
     } catch (error) {

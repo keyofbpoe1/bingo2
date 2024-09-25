@@ -11,63 +11,31 @@ export default function MultiplayerPage() {
   const [privacy, setPrivacy] = useState<boolean>(true);
   const router = useRouter();
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   console.log(name);
-  //   console.log(privacy);
-    
-  //   const res = await fetch("/api/gamerooms", {
-  //     method: "POST",
-  //     headers: {
-  //       "Content-Type": "application/json",
-  //     },
-  //     body: JSON.stringify({ name, privacy }),
-  //   });
-  //   const json = await res.json();
-  //   console.log(json);
-    
-  //   router.push(`/multiplayer/${json.gameroom.id}`);
-  // };
+  const callDeleteAllRoute = async () => {
+    try {
+      const response = await fetch("/api/gamerooms?all=true", {
+        method: 'DELETE',
+      });
+      const data = await response.json();
+      console.log(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
-
-    //<>
      <div className="container mx-auto flex h-screen">
-      <aside className="w-64 bg-gray-100 p-4 border-r border-gray-300" style={{left: 0, position: 'fixed'}}>
+      <aside className="w-64 bg-gray-100 p-4 border-r border-gray-300" style={{position: 'relative', left: -150, height: 'fit-content'}}>
         <GameRoomList />
+        <button className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded mt-4" onClick={callDeleteAllRoute}>
+          Delete all game rooms
+        </button>
       </aside>
       <main className="flex-1 p-4" style={{marginLeft: '20rem'}}>
         <CreateGameRoom />
       </main>
         
-      </div>
-    //</>
-
-
-    // <div>
-    //   <h1>Multiplayer</h1>
-    //   <form onSubmit={handleSubmit}>
-    //     <label>
-    //       Name:
-    //       <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-    //     </label>
-    //     <br />
-    //     <label>
-    //       Privacy:
-    //       <select
-    //         value={privacy.toString()}
-    //         onChange={(e) =>
-    //           setPrivacy(e.target.value === "true")
-    //         }
-    //       >
-    //         <option value="true">Private</option>
-    //         <option value="false">Public</option>
-    //       </select>
-    //     </label>
-    //     <br />
-    //     <button type="submit">Create Game</button>
-    //   </form>
-    //   <GameRoomList />
-    // </div>
+      </div> 
   );
 }
+
